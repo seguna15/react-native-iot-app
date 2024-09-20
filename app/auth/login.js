@@ -1,8 +1,8 @@
-import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
+import React, { useEffect } from 'react'
 import { Formik } from 'formik'
 import * as Yup from "yup"
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser } from '../(services)/api/api';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,6 @@ const Login = () => {
       mutationFn: loginUser,
       mutationKey: ["login"],
     });
-
     //dispatch
     const dispatch = useDispatch()
 
@@ -28,13 +27,24 @@ const Login = () => {
     
     const router = useRouter();
 
+    
+
+    
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{title: "Login"}} />
+      <Image style={styles.image} source={require("../../assets/logo.png")} />
       <Text style={styles.title}>Login</Text>
 
       {/* Display messages */}
-      {mutation?.isError && <Text style={styles.errorText}>{mutation?.error?.response?.data?.message}</Text>}
-      {mutation?.isSuccess && <Text style={styles.successText}>Logged in successfully</Text>}
+      {mutation?.isError && (
+        <Text style={styles.errorText}>
+          {mutation?.error?.response?.data?.message}
+        </Text>
+      )}
+      {mutation?.isSuccess && (
+        <Text style={styles.successText}>Logged in successfully</Text>
+      )}
 
       {/* Formik configuration */}
       <Formik
@@ -44,12 +54,10 @@ const Login = () => {
           mutation
             .mutateAsync(values)
             .then((data) => {
-              dispatch(loginUserAction(data))
+              dispatch(loginUserAction(data));
               router.push("/(tabs)");
             })
-            .catch((error) => {
-              //console.log(error);
-            });
+            .catch((error) => {});
 
           //
         }}
@@ -116,6 +124,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     backgroundColor: "#f5f5f5",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderColor: "#8ac926",
+    borderWidth: 5,
+    resizeMode: "cover",
+    marginBottom: 20,
   },
   title: {
     fontSize: 32,

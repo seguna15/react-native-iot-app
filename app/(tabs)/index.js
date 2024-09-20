@@ -11,6 +11,14 @@ export default function App() {
     longitudeDelta: 0.0421,
   });
 
+  const [mapRegion1, setMapRegion1] = useState({
+    latitude: 49.967147,
+    longitude: 14.458644,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+
   useEffect(() => {
     const location = setInterval(async () => {
       const data = await fetchLocation();
@@ -23,10 +31,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <MapView style={styles.map} region={mapRegion}>
-        <Marker coordinate={mapRegion} title="Marker"/>
+        <Marker coordinate={mapRegion} title="Marker" />
+        <Marker coordinate={mapRegion1} title="Marker" />
       </MapView>
       <View style={styles.textView}>
-        <Text style={styles.bigText}>Temp:</Text>
+        <Text style={styles.bigText}>Temp: </Text>
         <Text style={styles.bigText}>{mapRegion?.temperature}</Text>
         <Text style={styles.supScriptOne}>&#x2103;</Text>
       </View>
@@ -37,14 +46,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "flex-end",
   },
   map: {
     width: "100%",
-    height: "100%",
+    height: "95%",
   },
   textView: {
     width: "100%",
-    backgroundColor: "#8ac926",
+    height: 60,
+    backgroundColor: "#fff",
     display: "flex",
     flexDirection: "row",
     position: "absolute",
@@ -53,12 +64,12 @@ const styles = StyleSheet.create({
   },
   bigText: {
     fontSize: 24,
-    color: "#f5f5f5",
+    color: "#333",
   },
 
   supScriptOne: {
     fontSize: 12,
     lineHeight: 15,
-    color: "#f5f5f5",
+    color: "#333",
   },
 });

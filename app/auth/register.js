@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "expo-router";
+import { useRouter, Stack } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../(services)/api/api";
 
@@ -32,12 +32,13 @@ const Register = () => {
     mutationKey: ["register"],
   });
 
-  console.log("mutation", mutation);
+ 
 
    const router = useRouter();
 
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ title: "Register", }} />
       <Text style={styles.title}>Register</Text>
 
       {/* Display messages */}
@@ -59,19 +60,18 @@ const Register = () => {
           confirmPassword: "",
         }}
         onSubmit={(values) => {
-          console.log(values);
+          
           //calling mutation
           mutation
             .mutateAsync(values)
             .then((data) => {
-              console.log("data", data);
-              
+              router.push("auth/login");
             })
             .catch((error) => {
-              console.log(error);
+              //console.log(error);
             });
 
-          router.push("auth/login");
+          
         }}
         validationSchema={validationSchema}
       >

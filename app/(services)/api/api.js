@@ -1,7 +1,7 @@
 import axios from "axios";
  import { loadUserFromStorage } from "../../(redux)/authSlice";
 
-const base_url = process.env.BACKEND_API;
+const base_url = process.env.BACKEND_API; 
 
 //login
 export const loginUser = async ({email, password}) => {

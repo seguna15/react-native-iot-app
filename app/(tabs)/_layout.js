@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, Stack } from "expo-router";
 import {FontAwesome} from "@expo/vector-icons"
 import ProtectedRoute from "../../component/ProtectedRoute";
 
@@ -6,7 +6,8 @@ import ProtectedRoute from "../../component/ProtectedRoute";
 export default function RootLayout() {
     return (
       <ProtectedRoute>
-        <Tabs>
+        <Tabs screenOptions={{ tabBarActiveTintColor: "#8ac926" }}>
+          
           <Tabs.Screen
             name="index"
             options={{

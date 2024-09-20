@@ -17,6 +17,11 @@ const AppWrapper = () => {
         name="index"
         options={{ headerShown: false, title: "Home" }}
       />
+
+      <Stack.Screen
+        name="(tabs)"
+        options={{  title: "Tabs", headerShown: false, }}
+      />
     </Stack>
   );
 }
